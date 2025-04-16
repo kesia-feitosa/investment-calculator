@@ -1,4 +1,4 @@
-import { Component, inject, input, Input } from '@angular/core';
+import { Component, computed, inject, input, Input } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { InvestmentService } from '../investment.service';
 
@@ -30,7 +30,12 @@ export class InvestmentResultsComponent {
 
   private investmentService = inject(InvestmentService);
 
-  get results() {
+  get resultsOld() {
     return this.investmentService.resultsData;
   }
+
+  //this way data can be changed
+  results  = computed(() => this.investmentService.resultsData());
+  //this way data can not be changed
+  //results  = this.investmentService.resultsData.asReadonly();
 }
